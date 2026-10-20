@@ -6,6 +6,7 @@ Les tests qui touchent la base utilisent un vrai PostgreSQL 17 et les schémas d
 - sinon ces tests sont ignorés (skip), les autres s'exécutent normalement.
 """
 
+import base64
 import os
 import shutil
 import subprocess
@@ -28,7 +29,7 @@ PG_IMAGE = "postgres:17-alpine"
 # Secret TOTP (base32) imposé au compte admin des services démarrés en test.
 ADMIN_TOTP_SECRET = "JBSWY3DPEHPK3PXPJBSWY3DPEHPK3PXP"
 # Clé AES-256 (base64) des données biométriques ; les modèles faciaux ne sont pas chargés (moteur factice dans les tests).
-FACE_ENCRYPTION_KEY = "dGVzdC1rZXktZm9yLWZhY2UtdmF1bHQtMzItYnl0ZXM="
+FACE_ENCRYPTION_KEY = base64.b64encode(b"unit-tests-only-face-vault-key!!").decode()
 
 
 def _pem_pair() -> tuple[str, str]:
